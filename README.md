@@ -1,42 +1,46 @@
 # Olist Sales Analytics Pipeline
 
 ## 📌 Overview
-This project simulates a real-world data analysis scenario using the Olist Brazilian E-Commerce dataset.
-
-The objective is to transform raw transactional data into actionable business insights and automate reporting for decision-making.
+End-to-end data analysis project using Olist e-commerce data to generate business insights and automate reporting.
 
 ---
 
 ## 🎯 Business Problem
-The company lacks clear visibility into its sales performance.
-
-Key challenges:
-- Which product categories drive revenue?
-- How does revenue evolve over time?
-- Which regions generate the most value?
-
-Without this visibility, decision-making becomes reactive instead of strategic.
+Lack of visibility into:
+- Revenue performance
+- Top-selling categories
+- Sales trends over time
 
 ---
 
-## 📊 Solution
-This project builds an end-to-end analytics pipeline that:
-
-- Processes raw e-commerce data
-- Calculates key business metrics
-- Generates visual insights
-- Produces an automated sales report
-
----
-
-## 📈 Key Metrics
+## 📊 Key Metrics
 - Total Revenue
 - Total Orders
-- Average Order Value (AOV)
-- Top Revenue Categories
-- Revenue by State
+- Average Order Value
+- Revenue by Category
 - Revenue Over Time
 
 ---
 
-## 🧱 Project Structure
+## 🛠 Tech Stack
+- Python (Pandas)
+- Matplotlib
+
+---
+
+## 🚀 Run Project
+src/generate_report.py
+
+---
+
+## 📊 Sample Output
+
+# 🧠 Insights
+- Revenue concentrated in few categories
+- Clear variation over time (potential seasonality)
+- Certain regions dominate sales
+
+# 💼 What This Shows
+- Data pipeline design
+- Business-oriented analysis
+- Automated reporting
