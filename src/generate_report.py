@@ -2,7 +2,8 @@ from data_loader import load_data
 from data_processing import (
     create_order_revenue,
     create_items_dataset,
-    create_final_dataset
+    create_final_dataset,
+    save_processed_data
 )
 from analysis import calculate_metrics
 from visualization import (
@@ -10,12 +11,14 @@ from visualization import (
     plot_revenue_over_time
 )
 
+from pathlib import Path
+
 
 def main():
-    # 🔹 Load
+    # Load
     orders, items, products, customers, payments = load_data()
 
-    # 🔹 Process
+    # Process
     order_revenue = create_order_revenue(orders, payments)
     items_products = create_items_dataset(items, products)
 
@@ -26,36 +29,34 @@ def main():
         orders
     )
 
-    # 🔹 Analysis
+    # Save processed dataset
+    save_processed_data(df)
+
+    # Analysis
     metrics = calculate_metrics(df)
 
-    # 🔹 Visualization
+    # Visualization
     plot_revenue_by_category(df)
     plot_revenue_over_time(df)
 
-    # 🔹 Report
-    from pathlib import Path
-
-    # 🔹 cria caminho absoluto seguro
+    # Report
     report_path = Path(__file__).resolve().parent.parent / "output" / "reports"
-
-    # 🔹 garante que a pasta existe
     report_path.mkdir(parents=True, exist_ok=True)
 
-    # 🔹 salva o arquivo
-    with open(report_path / "report.txt", "w") as f:
-        f.write("SALES REPORT - OLIST\n\n")
-        f.write(f"Total Revenue: {metrics['total_revenue']:.2f}\n")
-        f.write(f"Total Orders: {metrics['total_orders']}\n")
-        f.write(f"Average Ticket: {metrics['avg_ticket']:.2f}\n\n")
+    with open(report_path / "report.txt", "w", encoding="utf-8") as f:
+        f.write("RELATÓRIO DE VENDAS - OLIST\n\n")
+        f.write(f"Receita Total: {metrics['total_revenue']:.2f}\n")
+        f.write(f"Pedidos Totais: {metrics['total_orders']}\n")
+        f.write(f"Ticket Médio: {metrics['avg_ticket']:.2f}\n\n")
 
-        f.write("Top Categories:\n")
-        for category, value in metrics["top_categories"].items():
-            f.write(f"- {category}: {value:.2f}\n")
+        f.write("Top Categorias:\n")
+        for k, v in metrics["top_categories"].items():
+            f.write(f"- {k}: {v:.2f}\n")
 
-        f.write("\nTop States:\n")
-        for state, value in metrics["revenue_by_state"].items():
-            f.write(f"- {state}: {value:.2f}\n")
+        f.write("\nTop Estados:\n")
+        for k, v in metrics["revenue_by_state"].items():
+            f.write(f"- {k}: {v:.2f}\n")
+
 
 if __name__ == "__main__":
     main()

@@ -1,25 +1,26 @@
 def calculate_metrics(df):
-    metrics = {}
-
     total_revenue = df["payment_value"].sum()
     total_orders = df["order_id"].nunique()
+    avg_ticket = total_revenue / total_orders
 
-    metrics["total_revenue"] = total_revenue
-    metrics["total_orders"] = total_orders
-    metrics["avg_ticket"] = total_revenue / total_orders
-
-    metrics["top_categories"] = (
+    top_categories = (
         df.groupby("product_category_name")["payment_value"]
         .sum()
         .sort_values(ascending=False)
-        .head(5)
+        .head(10)
     )
 
-    metrics["revenue_by_state"] = (
+    revenue_by_state = (
         df.groupby("customer_state")["payment_value"]
         .sum()
         .sort_values(ascending=False)
-        .head(5)
+        .head(10)
     )
 
-    return metrics
+    return {
+        "total_revenue": total_revenue,
+        "total_orders": total_orders,
+        "avg_ticket": avg_ticket,
+        "top_categories": top_categories,
+        "revenue_by_state": revenue_by_state
+    }

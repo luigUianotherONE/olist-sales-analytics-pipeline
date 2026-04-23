@@ -1,13 +1,15 @@
-def create_order_revenue(orders, payments):
-    df = orders.merge(payments, on="order_id")
+from pathlib import Path
 
-    # 🔹 garante 1 linha por pedido
-    df = (
-        df.groupby("order_id", as_index=False)["payment_value"]
+def create_order_revenue(orders, payments):
+    order_revenue = orders.merge(payments, on="order_id")
+
+    order_revenue = (
+        order_revenue
+        .groupby("order_id", as_index=False)["payment_value"]
         .sum()
     )
 
-    return df
+    return order_revenue
 
 
 def create_items_dataset(items, products):
@@ -15,7 +17,8 @@ def create_items_dataset(items, products):
 
 
 def create_final_dataset(order_revenue, items_products, customers, orders):
-
+    
+    
     df = items_products.merge(order_revenue, on="order_id")
 
     df = df.merge(
@@ -26,3 +29,10 @@ def create_final_dataset(order_revenue, items_products, customers, orders):
     df = df.merge(customers, on="customer_id")
 
     return df
+
+
+def save_processed_data(df):
+    output_path = Path(__file__).resolve().parent.parent / "data" / "processed"
+    output_path.mkdir(parents=True, exist_ok=True)
+
+    df.to_csv(output_path / "final_dataset.csv", index=False)
