@@ -1,6 +1,6 @@
 # Olist Sales Analytics Pipeline
 
-## 📌 Overview
+# 📌 Overview
 End-to-end data analysis project using Olist e-commerce data to generate business insights and automate reporting.
 
 ---
@@ -33,14 +33,14 @@ src/generate_report.py
 
 ---
 
-## 📊 Sample Output
+# 📊 Sample Output
 
-# 🧠 Insights
+## 🧠 Insights
 - Revenue concentrated in few categories
 - Clear variation over time (potential seasonality)
 - Certain regions dominate sales
 
-# 💼 What This Shows
+## 💼 What This Shows
 - Data pipeline design
 - Business-oriented analysis
 - Automated reporting
